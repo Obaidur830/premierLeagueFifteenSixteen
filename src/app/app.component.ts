@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {MatchDetails} from './interfaces/match-details';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'premierLeagueFifteenSixteen';
   url = 'https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/en.1.json';
   obj: any;
@@ -34,8 +37,20 @@ export class AppComponent {
              this.matches.push(this.match);
         }
       }
+     // console.log(this.matches);
+      this.listData = new MatTableDataSource<MatchDetails>(this.matches);
       console.log(this.matches);
+      this.listData.sort = this.sort;
+      this.listData.paginator = this.paginator;
     });
 
+  }
+  listData: MatTableDataSource<MatchDetails>;
+  displayedColumns: string[] = ['date', 'team1', 'score1'];
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngOnInit(){
+    
   }
 }

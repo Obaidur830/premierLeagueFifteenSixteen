@@ -4,6 +4,9 @@ import {MatchDetails} from './interfaces/match-details';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ClubInfoService } from './modals/club-info.service';
+import { ClubInfoComponent } from './modals/club-info/club-info.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +19,7 @@ export class AppComponent implements OnInit {
   matches: MatchDetails[] = [];
   match: MatchDetails;
   // tslint:disable-next-line: align
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient, private dialog: MatDialog, private clubInfoService: ClubInfoService ){
     this.http.get(this.url).toPromise().then(data => {
       this.obj = data;
       // console.log(this.obj.rounds[0].matches[0].date);
@@ -39,7 +42,7 @@ export class AppComponent implements OnInit {
       }
      // console.log(this.matches);
       this.listData = new MatTableDataSource<MatchDetails>(this.matches);
-      console.log(this.matches);
+      // console.log(this.matches);
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
     });
@@ -51,6 +54,16 @@ export class AppComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(){
-    
+
+  }
+  cellClicked( clubName: string) {
+    this.clubInfoService.filterSpecificClub(this.matches , clubName);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(ClubInfoComponent, dialogConfig);
+
+
   }
 }

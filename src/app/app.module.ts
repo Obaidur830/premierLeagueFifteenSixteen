@@ -8,13 +8,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+
+import { ClubInfoComponent } from './modals/club-info/club-info.component';
+import { ClubInfoService } from './modals//club-info.service';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ClubInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -24,8 +29,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [ClubInfoService],
+  entryComponents: [ClubInfoComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

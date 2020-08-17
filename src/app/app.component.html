@@ -46,7 +46,7 @@
     </ng-container>
     <ng-container matColumnDef="team1">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Teams</mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="cellClicked(element.name)" >{{element.team1}} vs {{element.team2}}</mat-cell>
+      <mat-cell *matCellDef="let element"> <span (click)="cellClicked(element.team1)" >{{element.team1}}</span>  &nbsp;vs&nbsp; <span (click)="cellClicked(element.team2)" >{{element.team2}}</span></mat-cell>
     </ng-container>
     <ng-container matColumnDef="score1">
       <mat-header-cell *matHeaderCellDef mat-sort-header>score</mat-header-cell>

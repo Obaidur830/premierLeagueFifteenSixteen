@@ -22,13 +22,10 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient, private dialog: MatDialog, private clubInfoService: ClubInfoService ){
     this.http.get(this.url).toPromise().then(data => {
       this.obj = data;
-      // console.log(this.obj.rounds[0].matches[0].date);
-
       // tslint:disable-next-line: forin
       for (const i in this.obj.rounds) {
        // tslint:disable-next-line: forin
        for (const j in this.obj.rounds[i].matches){
-
              this.match = {
                 date: this.obj.rounds[i].matches[j].date,
                 team1: this.obj.rounds[i].matches[j].team1,
@@ -61,7 +58,7 @@ export class AppComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
+    dialogConfig.width = '20%';
     this.dialog.open(ClubInfoComponent, dialogConfig);
 
 
